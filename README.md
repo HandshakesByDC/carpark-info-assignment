@@ -50,4 +50,4 @@ Additional consideration to fine-tune your solution. It's not a must to implemen
 This assignment should take about 2 to 4 hours of your time depending on your level of experiences. 
 
 ## Need Help
-Create a github issue. We'll get back to you.
+Create a github issue. We'll get back to you..
