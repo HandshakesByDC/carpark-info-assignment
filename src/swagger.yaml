@@ -8,51 +8,68 @@ servers:
 paths:
   /carparks:
     get:
-      summary: Get Car Parks by Criteria
+      summary: Get Car Parks 
       parameters:
-        - name: freeParking
+        - name: isFreeParking
           in: query
           description: Free parking availability
           required: false
           schema:
-            type: string
-        - name: nightParking
+            type: booleab
+        - name: isNightParkingAllowed
           in: query
           description: Night parking availability
           required: false
           schema:
-            type: string
+            type: boolean
         - name: gantryHeight
           in: query
-          description: Minimum gantry height
+          description: Maximum gantry height
           required: false
           schema:
             type: number
+        - name: page
+          in: query
+          description: Page number
+          required: false
+          schema:
+            type: integer
+          default: 1
+        - name: limit
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+          default: 10
       responses:
         '200':
           description: A list of car parks
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CarPark'
-    post:
-      summary: Add a new Car Park
-      requestBody:
-        description: A JSON object containing car park details
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CarPark'
-      responses:
-        '201':
-          description: Car park created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CarPark'
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Carpark'
+                  pagination:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      page:
+                        type: integer
+                      limit:
+                        type: integer
+                      totalPages:
+                        type: integer
+    
   /carparks/{id}/favorite:
     post:
       summary: Add a car park to favorites
@@ -69,7 +86,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Favorite'
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/FavoriteCarpark'
   /favorites/{id}:
     delete:
       summary: Remove a car park from favorites
@@ -86,10 +110,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Favorite'
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/FavoriteCarpark'
 components:
   schemas:
-    CarPark:
+    Carpark:
       type: object
       properties:
         id:
@@ -98,27 +129,27 @@ components:
           type: string
         address:
           type: string
-        xCoord:
+        xCoordinate:
           type: number
-        yCoord:
+        yCoordinate:
           type: number
         carParkType:
           type: string
-        typeOfParkingSystem:
+        parkingSystemType:
           type: string
         shortTermParking:
           type: string
         freeParking:
           type: string
-        nightParking:
-          type: string
-        carParkDecks:
+        isNightParkingAllowed:
+          type: boolean
+        carParkDeckQuantity:
           type: integer
         gantryHeight:
           type: number
-        carParkBasement:
-          type: string
-    Favorite:
+        isBasementCarpark:
+          type: boolean
+    FavoriteCarpark:
       type: object
       properties:
         id:
@@ -136,3 +167,4 @@ components:
         deletedAt:
           type: string
           format: date-time
+          nullable: true

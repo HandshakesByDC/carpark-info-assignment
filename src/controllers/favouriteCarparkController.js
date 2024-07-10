@@ -1,11 +1,11 @@
 const favoriteCarparkRepository = require("./favoriteCarparkRepository");
 
 const addFavouriteCarpark = async (req) => {
-  const { id } = req.params;
+  const { carparkId } = req.params;
   const userId = req.user.id;
   const existingFavorite =
     await favoriteCarparkRepository.findFavoriteByCarParkIdAndUserId(
-      Number(id),
+        carparkId,
       userId
     );
 
@@ -14,7 +14,7 @@ const addFavouriteCarpark = async (req) => {
     throw new Error("Car park is already in your favorites!");
   } else {
     const favorite = await favoriteCarparkRepository.upsertFavouriteCarpark({
-      where: { carParkId: id, userId },
+      where: { carParkId, userId },
     });
     res.status(200).json({
       status: "success",

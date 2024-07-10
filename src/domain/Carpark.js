@@ -9,10 +9,10 @@ class Carpark {
     parkingSystemType,
     shortTermParking,
     freeParking,
-    nightParking,
+    isNightParkingAllowed,
     carParkDecks,
     gantryHeight,
-    hasBasement,
+    isBasementCarpark,
   }) {
     this.id = id;
     this.carParkNo = carParkNo;
@@ -23,10 +23,10 @@ class Carpark {
     this.parkingSystemType = parkingSystemType;
     this.shortTermParking = shortTermParking;
     this.freeParking = freeParking;
-    this.nightParking = nightParking;
+    this.isNightParkingAllowed = isNightParkingAllowed;
     this.carParkDecks = carParkDecks;
     this.gantryHeight = gantryHeight;
-    this.hasBasement = hasBasement;
+    this.isBasementCarpark = isBasementCarpark;
   }
 }
 
